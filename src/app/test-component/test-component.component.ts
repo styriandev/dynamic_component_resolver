@@ -1,5 +1,5 @@
 import {Component, ElementRef, Injector, OnInit, ViewContainerRef} from '@angular/core';
-import {DynamicComponent} from '../dynamic-component';
+import {DynamicComponent} from 'dynamic-component-resolver';
 
 @Component({
   selector: 'app-test-component',

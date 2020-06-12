@@ -1,8 +1,6 @@
 import {ComponentFactoryResolver, ElementRef, Injectable, Type, ViewContainerRef} from '@angular/core';
 import {DynamicComponent} from './dynamic-component';
 import {DynamicComponentConfiguration} from './dynamic-component-configuration';
-import {TestComponentComponent} from './test-component/test-component.component';
-import {ContentDirective} from './content-directive';
 import {DynamicContentRowComponent} from './dynamic-content-row/dynamic-content-row.component';
 
 @Injectable({
@@ -16,8 +14,16 @@ export class FactoryService {
   }
 
   registerComponent(dynamicComponent: Type<DynamicComponent>) {
-    const component = (dynamicComponent as any).__annotations__[0];
-    const tagName: string = component.selector;
+    // dynamicComponent.decorators["0"].args["0"].selector
+    let tagName = '';
+    try {
+      const component = (dynamicComponent as any).decorators['0'];
+      if (component) {
+        tagName = component.args[0].selector;
+      }
+    } catch(err) {
+      tagName = (dynamicComponent as any).__annotations__[0].selector;
+    }
     this.availableComponents.set(tagName.toLowerCase(), dynamicComponent);
   }
 

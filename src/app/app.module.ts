@@ -3,23 +3,19 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { TestComponentComponent } from './test-component/test-component.component';
-import {FactoryService} from './factory.service';
-import {ContentDirective} from './content-directive';
-import { DynamicContentRowComponent } from './dynamic-content-row/dynamic-content-row.component';
+import {ContentDirective, DynamicComponentResolverModule, DynamicContentRowComponent, FactoryService} from 'dynamic-component-resolver';
 
 @NgModule({
   declarations: [
     AppComponent,
     TestComponentComponent,
-    ContentDirective,
-    DynamicContentRowComponent
   ],
   entryComponents: [
-    DynamicContentRowComponent,
-    TestComponentComponent
+    TestComponentComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    DynamicComponentResolverModule
   ],
   providers: [
     FactoryService
