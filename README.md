@@ -1,27 +1,25 @@
-# ComponentFactory
+# DynamicComponentResolver
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+A library that is able to generate angular ui with a JSON configuration schema.
 
-## Development server
+Under projects you can find the actual lib, the main Angular project aims to be a demonstration of how to use this library.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+#Usage
+Import the module DynamicComponentResolverModule in the module where you want to use it.
 
-## Code scaffolding
+Inject the class factoryService where you want to trigger the drawing.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+In your component where children could be added mark that location by the following template (Replacement for ng-content):
+`<ng-template #content dynamic-content ></ng-template>`
 
-## Build
+Register all your components that configurations might use:
+`this.factory.registerComponent(TestComponentComponent);`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Take your configuration and put it into the drawConfiguration method:
+`const config = new DynamicComponentConfiguration('1', 'app-test-component', 0, 0, 0);
+     config.childComponents.push(new DynamicComponentConfiguration('2', 'app-test-component', 0, 0, 0));
+     config.childComponents.push(new DynamicComponentConfiguration('3', 'app-test-component', 0, 0, 0));
+     const toDraw = [];
+     toDraw.push(config);
+     this.factory.drawConfiguration(this.adHost.viewContainerRef, toDraw);`
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
